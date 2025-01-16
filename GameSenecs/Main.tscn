@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqrl4e2tiwbi1"]
+
+[ext_resource type="Texture2D" uid="uid://dc5lkr6d46dmp" path="res://Images/1736731891_901352.png" id="1_3tdni"]
+[ext_resource type="Script" path="res://scriptes/button.gd" id="2_itkd2"]
+
+[node name="Main" type="Node"]
+
+[node name="LogoText" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -490.0
+offset_top = -147.0
+offset_right = 490.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_3tdni")
+
+[node name="Button" type="Button" parent="."]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.0
+offset_top = 110.0
+offset_right = 121.0
+offset_bottom = 208.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "开始游戏"
+script = ExtResource("2_itkd2")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

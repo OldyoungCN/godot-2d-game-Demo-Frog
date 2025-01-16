@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ColorGradient" load_steps=3 format=3 uid="uid://cpgyxlmfa1ict"]
+
+[ext_resource type="Script" path="res://addons/ninetailsrabbit.pixel_space_background_generator/src/color_schemes/gradients/color_gradient.gd" id="1_0aeiv"]
+[ext_resource type="Texture2D" uid="uid://l5r5amdvbt35" path="res://addons/ninetailsrabbit.pixel_space_background_generator/src/color_schemes/desert.tres" id="1_a2aqw"]
+
+[resource]
+script = ExtResource("1_0aeiv")
+id = &"nyx8"
+name = &"Nyx8"
+gradient = ExtResource("1_a2aqw")

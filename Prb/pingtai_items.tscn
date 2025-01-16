@@ -1,0 +1,113 @@
+[gd_scene load_steps=12 format=3 uid="uid://dpce3d4qcq4mn"]
+
+[ext_resource type="Script" path="res://scriptes/path_2d.gd" id="1_khdwm"]
+[ext_resource type="Texture2D" uid="uid://bbaubb8rsb41r" path="res://Images/Items/Traps/Falling Platforms/On (32x10).png" id="2_sywl6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xgir"]
+atlas = ExtResource("2_sywl6")
+region = Rect2(0, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wp4ga"]
+atlas = ExtResource("2_sywl6")
+region = Rect2(32, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyruc"]
+atlas = ExtResource("2_sywl6")
+region = Rect2(64, 0, 32, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elq3y"]
+atlas = ExtResource("2_sywl6")
+region = Rect2(96, 0, 32, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ef7kd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xgir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wp4ga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyruc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elq3y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu12n"]
+size = Vector2(36.8588, 12.6157)
+
+[sub_resource type="Animation" id="Animation_207di"]
+resource_name = "Move_heng"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1.55, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_8aw13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0g5hb"]
+_data = {
+"Move_heng": SubResource("Animation_207di"),
+"RESET": SubResource("Animation_8aw13")
+}
+
+[node name="pingtai_items" type="Path2D"]
+script = ExtResource("1_khdwm")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+texture_filter = 1
+position = Vector2(0.000122547, -0.999939)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D"]
+position = Vector2(-7.15256e-07, -9.15527e-05)
+scale = Vector2(1.14, 1.14)
+sprite_frames = SubResource("SpriteFrames_ef7kd")
+autoplay = "default"
+frame_progress = 0.649447
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(-0.386582, -0.115618)
+shape = SubResource("RectangleShape2D_uu12n")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, -1)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+position = Vector2(0.000122547, 6.10352e-05)
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0g5hb")
+}
+autoplay = "Move_heng"

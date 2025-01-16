@@ -1,0 +1,140 @@
+[gd_scene load_steps=16 format=3 uid="uid://dhs6tpysonod7"]
+
+[ext_resource type="Script" path="res://scriptes/path_2d.gd" id="1_mhxfl"]
+[ext_resource type="Texture2D" uid="uid://jdp1vm1ohwky" path="res://Images/Items/Traps/Saw/On (38x38).png" id="2_3e0dn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_obj23"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(0, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3ctj"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(38, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a85mm"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(76, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f03y4"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(114, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mup41"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(152, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdxm0"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(190, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0vin"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(228, 0, 38, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vlbv"]
+atlas = ExtResource("2_3e0dn")
+region = Rect2(266, 0, 38, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3fjee"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obj23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3ctj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a85mm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f03y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mup41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdxm0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0vin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vlbv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xgxen"]
+radius = 23.413
+
+[sub_resource type="Animation" id="Animation_207di"]
+resource_name = "Move_heng"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1.55, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_8aw13"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0g5hb"]
+_data = {
+"Move_heng": SubResource("Animation_207di"),
+"RESET": SubResource("Animation_8aw13")
+}
+
+[node name="lunzi_items" type="Path2D"]
+script = ExtResource("1_mhxfl")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+texture_filter = 1
+position = Vector2(0.000122547, -0.999939)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatableBody2D"]
+position = Vector2(-7.15256e-07, -9.15527e-05)
+scale = Vector2(1.14, 1.14)
+sprite_frames = SubResource("SpriteFrames_3fjee")
+frame_progress = 0.787416
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(-0.386582, -0.115618)
+shape = SubResource("CircleShape2D_xgxen")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, -1)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+position = Vector2(0.000122547, 6.10352e-05)
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0g5hb")
+}
+autoplay = "Move_heng"
